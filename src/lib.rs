@@ -1,5 +1,7 @@
 use std::marker::PhantomData;
 use std::fmt::{self, Formatter};
+use std::hash::{self, Hasher};
+use std::cmp::Ordering;
 
 // TODO: would probably be nice to be able to set an upper bound on the size of the buffer
 
@@ -51,13 +53,38 @@ impl<T> Clone for Handle<T> {
     }
 }
 
-impl<T> Copy for Handle<T> {}
-
 impl<T> fmt::Debug for Handle<T> {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         write!(f, "Handle({})", self.0)
     }
 }
+
+impl<T> hash::Hash for Handle<T> {
+    fn hash<H>(&self, state: &mut H) where H: Hasher {
+        self.0.hash(state)
+    }
+}
+
+impl<T> PartialEq for Handle<T> {
+    fn eq(&self, other: &Self) -> bool {
+        self.0 == other.0
+    }
+}
+
+impl<T> PartialOrd for Handle<T> {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        self.0.partial_cmp(&other.0)
+    }
+}
+
+impl<T> Ord for Handle<T> {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.0.cmp(&other.0)
+    }
+}
+
+impl<T> Copy for Handle<T> {}
+impl<T> Eq for Handle<T> {}
 
 // TODO: manually implement Hash, Eq, Ord, PartialEq, PartialOrd
 // note to self: they need to be manually implemented because their
