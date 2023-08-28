@@ -3,4 +3,11 @@ name = "reservoir-buf"
 version = "0.0.1"
 edition = "2021"
 
+authors = ["Arthur Lafrance <lafrancearthur@gmail.com>"]
+description = "Dead simple interning"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/a-lafrance/reservoir-buf"
+keywords = ["intern", "buffer", "data-structure"]
+
 [dependencies]

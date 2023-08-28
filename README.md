@@ -1,5 +1,5 @@
 # reservoir-buf
-Really simple interning in Rust
+Dead simple interning in Rust
 
 **NOTE: This is a very early-stage project that for now I'm mostly only using in personal stuff**
 
