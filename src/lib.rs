@@ -1,4 +1,5 @@
 use std::marker::PhantomData;
+use std::fmt::{self, Formatter};
 
 // TODO: would probably be nice to be able to set an upper bound on the size of the buffer
 
@@ -42,8 +43,26 @@ impl<T> Default for Reservoir<T> {
 
 /* --- Handle --- */
 
-#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Handle<T>(usize, PhantomData<T>);
+
+impl<T> Clone for Handle<T> {
+    fn clone(&self) -> Self {
+        Handle(self.0, self.1)
+    }
+}
+
+impl<T> Copy for Handle<T> {}
+
+impl<T> fmt::Debug for Handle<T> {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        write!(f, "Handle({})", self.0)
+    }
+}
+
+// TODO: manually implement Hash, Eq, Ord, PartialEq, PartialOrd
+// note to self: they need to be manually implemented because their
+// derive macros don't understand that this type doesn't actually
+// depend on its generic type for any of their impls.
 
 /* --- Tests --- */
 
