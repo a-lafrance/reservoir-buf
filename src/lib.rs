@@ -42,17 +42,8 @@ impl<T> Default for Reservoir<T> {
 
 /* --- Handle --- */
 
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Handle<T>(usize, PhantomData<T>);
-
-impl<T> Clone for Handle<T> {
-    fn clone(&self) -> Self {
-        Handle(self.0, self.1)
-    }
-}
-
-impl<T> Copy for Handle<T> {}
-
-// TODO: have to manually impl Debug, Eq, Hash, Ord, PartialEq, PartialOrd
 
 /* --- Tests --- */
 
